@@ -1,5 +1,5 @@
 ```mermaid
-flowchart TD
+flowchart LR
     DB_MASTER[(社内用語集スプレッドシート)]
 
     A[毎朝 GASトリガー起動] --> B{① 昨日の定例予定は<br>あったか？}
