@@ -3,7 +3,7 @@ flowchart TD
     A[📄 Google ドキュメント作成] -->|指定フォルダに保存| B(📁 Google ドライブ)
     B -->|ファイル追加を検知| C[🤖 Google Workspace Studio]
     
-    subgraph AI解析・標準化処理
+    subgraph AI_Process [AI解析・標準化処理]
         C -->|テキスト抽出| D[✨ Gemini]
         M[(📚 社内用語マスター)] -->|用語統一・粒度ルール参照| D
         D -->|表記統一・要約生成| C
