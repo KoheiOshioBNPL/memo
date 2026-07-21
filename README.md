@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     A[毎朝 GASトリガー起動] --> B{① 昨日の定例予定は<br>あったか？}
     
