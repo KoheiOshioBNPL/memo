@@ -7,7 +7,7 @@ graph TD
     end
 
     node4["⚙️ 4. GAS: スプシ更新を検知、Webhookリクエスト処理"]
-    node5["💬 5. 出力: Slackへ要約・タブ直リンクを自動投稿"]
+    node5["💬 5. 出力: Slackへ要約・リンクを自動投稿"]
 
     node1 -->|追記テキスト| node2
     node2 -->|要約データ + タブURL| logDB
