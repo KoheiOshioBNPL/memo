@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     subgraph GW ["Google Workspace 領域 (ノーコード / 内蔵AI)"]
         node1["📄 1. 入力: Googleドキュメント<br/>対象タブに追記"]
