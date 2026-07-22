@@ -1,25 +1,20 @@
-```mermaid
-flowchart TD
-    DB_MASTER[(社内用語集スプレッドシート)]
+graph TD
+    subgraph GW ["Google Workspace 領域 (ノーコード / 内蔵AI)"]
+        node1["📄 1. 入力: Googleドキュメント<br/>対象タブに追記"]
+        node2["🤖 2. 処理・要約: ドキュメント読み取り<br/>差分抽出・直リンクURL取得<br/>Geminiによる要約"]
+        logDB["📝 3. 記録: ログ用スプレッドシート<br/>へ要約・URLを記載"]
+    end
 
-    A[毎朝 GASトリガー起動] --> B{① 昨日の定例予定は<br>あったか？}
-    
-    B -- No（予定なし） --> C[処理スキップ・終了]
-    B -- Yes（予定あり） --> D[Googleドライブ内を自動検索]
-    
-    D --> E{② 該当 Docs が<br>存在するか？}
-    
-    E -- No（未検出） --> F[Slackに「議事録未検出」通知・終了]
-    E -- Yes（検出） --> G[WS内 AI要約処理を実行]
-    
-    G --> H{③ AI要約処理は<br>成功したか？}
-    
-    H -- No（エラー） --> I[管理者へエラー通知・終了]
-    H -- Yes（成功） --> J[Slack times チャンネルへ要約配信]
-    
-    J --> K{④ ユーザーが<br>用語解説ボタンを押下？}
-    
-    K -- No --> L[待機終了]
-    K -- Yes --> M[用語データの参照]
-    DB_MASTER --> M
-    M --> N[Slack上に用語解説を動的展開・完了]
+    subgraph GAS ["GAS 領域 (最小中継)"]
+        node4["⚙️ 4. 読み取り: スプシの更新を検知<br/>Webhookリクエスト処理"]
+    end
+
+    subgraph Output ["通知先"]
+        node5["💬 5. 出力: Slackへ要約・<br/>タブ直リンクを自動投稿"]
+    end
+
+    %% フロー接続
+    node1 --> node2
+    node2 --"要約データ + タブURL"--> logDB
+    logDB --"記載データを取得"--> node4
+    node4 --"Incoming Webhook"--> node5
